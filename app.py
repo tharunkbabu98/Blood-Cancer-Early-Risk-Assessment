@@ -270,7 +270,7 @@ engine = RiskAssessmentEngine()
 
 # ── Patient Details ───────────────────────────────────────────────────────────
 st.markdown('<div class="section-card">', unsafe_allow_html=True)
-st.markdown('<div class="section-label">👤 Patient Details</div>', unsafe_allow_html=True)
+st.markdown('<div class="section-label"> Patient Details</div>', unsafe_allow_html=True)
 col1, col2 = st.columns(2)
 with col1:
     age = st.number_input("Age", 18, 100, 30)
@@ -280,7 +280,7 @@ st.markdown('</div>', unsafe_allow_html=True)
 
 # ── CBC ───────────────────────────────────────────────────────────────────────
 st.markdown('<div class="section-card">', unsafe_allow_html=True)
-st.markdown('<div class="section-label">🔬 Complete Blood Count (CBC)</div>', unsafe_allow_html=True)
+st.markdown('<div class="section-label"> Complete Blood Count (CBC)</div>', unsafe_allow_html=True)
 col1, col2 = st.columns(2)
 with col1:
     hemoglobin = st.number_input("Hemoglobin (g/dL)", 4.0, 20.0, 13.5)
@@ -413,7 +413,7 @@ st.markdown('</div>', unsafe_allow_html=True)
 
 # ── Assess Button ─────────────────────────────────────────────────────────────
 st.markdown("<br>", unsafe_allow_html=True)
-if st.button("🔍 Run Risk Assessment"):
+if st.button(" Run Risk Assessment"):
     result = engine.assess_risk(
         age=age, gender=gender,
         hb=hemoglobin, wbc=wbc,
