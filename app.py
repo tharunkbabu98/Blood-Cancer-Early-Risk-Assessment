@@ -15,7 +15,6 @@ st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
 
-/* ── Reset & Base ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html, body, [data-testid="stAppViewContainer"] {
@@ -133,13 +132,14 @@ label, [data-testid="stWidgetLabel"] {
     font-family: 'DM Sans', sans-serif !important;
 }
 
-/* ── Sliders ── */
+/* ── Sliders base ── */
 [data-testid="stSlider"] > div > div > div {
-    background: rgba(239,68,68,0.6) !important;
+    background: rgba(239,68,68,0.2) !important;
 }
 [data-testid="stSlider"] > div > div > div > div {
     background: #ef4444 !important;
-    box-shadow: 0 0 10px rgba(239,68,68,0.5) !important;
+    box-shadow: 0 0 10px rgba(239,68,68,0.4) !important;
+    transition: background 0.3s, box-shadow 0.3s !important;
 }
 
 /* ── Assess Button ── */
@@ -200,7 +200,7 @@ label, [data-testid="stWidgetLabel"] {
     line-height: 1;
     margin-bottom: 0.5rem;
 }
-.risk-value.low { color: #10b981; }
+.risk-value.low  { color: #10b981; }
 .risk-value.moderate { color: #f59e0b; }
 .risk-value.high { color: #ef4444; }
 
@@ -245,22 +245,15 @@ label, [data-testid="stWidgetLabel"] {
     line-height: 1.6;
 }
 
-/* ── CBC Chart ── */
-[data-testid="stBarChart"] {
-    border-radius: 12px !important;
-    overflow: hidden !important;
-}
-
-/* ── Misc ── */
-[data-testid="stExpander"] { display: none !important; }
 hr { border-color: rgba(255,255,255,0.07) !important; }
+[data-testid="stExpander"] { display: none !important; }
 </style>
 """, unsafe_allow_html=True)
 
 # ── Hero ─────────────────────────────────────────────────────────────────────
 st.markdown("""
 <div class="hero">
-    <div class="hero-badge"> AI-Powered Hematology Screening</div>
+    <div class="hero-badge">🩸 AI-Powered Hematology Screening</div>
     <h1>Blood<span>Scan</span> AI</h1>
     <p>Early risk assessment for blood cancers using CBC values, patient demographics, and clinical symptom analysis.</p>
     <div class="hero-divider"></div>
@@ -277,7 +270,7 @@ engine = RiskAssessmentEngine()
 
 # ── Patient Details ───────────────────────────────────────────────────────────
 st.markdown('<div class="section-card">', unsafe_allow_html=True)
-st.markdown('<div class="section-label"> Patient Details</div>', unsafe_allow_html=True)
+st.markdown('<div class="section-label">👤 Patient Details</div>', unsafe_allow_html=True)
 col1, col2 = st.columns(2)
 with col1:
     age = st.number_input("Age", 18, 100, 30)
@@ -298,34 +291,129 @@ with col2:
 st.markdown('</div>', unsafe_allow_html=True)
 
 # ── Symptoms ──────────────────────────────────────────────────────────────────
-st.markdown('<div class="section-card">', unsafe_allow_html=True)
-st.markdown('<div class="section-label">🩺 Clinical Symptoms &nbsp;<span style="font-weight:300;color:#8892a4;font-size:0.7rem;letter-spacing:0">(0 = None · 3 = Severe)</span></div>', unsafe_allow_html=True)
-col1, col2 = st.columns(2)
 symptom_list = [
-    ("fatigue", "Fatigue"),
-    ("fever", "Fever"),
-    ("weight_loss", "Weight Loss"),
-    ("night_sweats", "Night Sweats"),
-    ("easy_bruising", "Easy Bruising"),
+    ("fatigue",             "Fatigue"),
+    ("fever",               "Fever"),
+    ("weight_loss",         "Weight Loss"),
+    ("night_sweats",        "Night Sweats"),
+    ("easy_bruising",       "Easy Bruising"),
     ("frequent_infections", "Frequent Infections"),
     ("lymph_node_swelling", "Lymph Node Swelling"),
-    ("bone_pain", "Bone Pain"),
+    ("bone_pain",           "Bone Pain"),
     ("shortness_of_breath", "Shortness of Breath"),
-    ("bleeding_gums", "Bleeding Gums"),
+    ("bleeding_gums",       "Bleeding Gums"),
 ]
+
+severity_labels = {0: "None", 1: "Mild", 2: "Moderate", 3: "Severe"}
+severity_colors = {0: "#4b5563", 1: "#f97316", 2: "#ef4444", 3: "#dc2626"}
+
+st.markdown('<div class="section-card">', unsafe_allow_html=True)
+st.markdown("""
+<div class="section-label">
+    🩺 Clinical Symptoms
+    <span style="font-weight:300;color:#8892a4;font-size:0.7rem;letter-spacing:0;text-transform:none;">
+        &nbsp;0 = None &nbsp;·&nbsp; 3 = Severe
+    </span>
+</div>
+""", unsafe_allow_html=True)
+
 symptoms = {}
 half = len(symptom_list) // 2
+col1, col2 = st.columns(2)
+
 with col1:
     for key, label in symptom_list[:half]:
-        symptoms[key] = st.slider(label, 0, 3, 0)
+        val = st.slider(label, 0, 3, 0, key=key)
+        symptoms[key] = val
+        color = severity_colors[val]
+        sev = severity_labels[val]
+        st.markdown(
+            f'<div style="margin:-14px 0 12px;text-align:right;">'
+            f'<span style="font-size:0.72rem;font-weight:600;color:{color};">{sev}</span>'
+            f'</div>',
+            unsafe_allow_html=True
+        )
+
 with col2:
     for key, label in symptom_list[half:]:
-        symptoms[key] = st.slider(label, 0, 3, 0)
+        val = st.slider(label, 0, 3, 0, key=key)
+        symptoms[key] = val
+        color = severity_colors[val]
+        sev = severity_labels[val]
+        st.markdown(
+            f'<div style="margin:-14px 0 12px;text-align:right;">'
+            f'<span style="font-size:0.72rem;font-weight:600;color:{color};">{sev}</span>'
+            f'</div>',
+            unsafe_allow_html=True
+        )
+
+# ── Dynamic slider color JS ───────────────────────────────────────────────────
+st.markdown("""
+<script>
+(function() {
+    const trackColors = {
+        0: 'rgba(75,85,99,0.4)',
+        1: 'rgba(249,115,22,0.5)',
+        2: 'rgba(239,68,68,0.7)',
+        3: 'rgba(220,38,38,1.0)'
+    };
+    const thumbGlow = {
+        0: 'none',
+        1: '0 0 8px rgba(249,115,22,0.5)',
+        2: '0 0 12px rgba(239,68,68,0.6)',
+        3: '0 0 18px rgba(220,38,38,0.9)'
+    };
+    const thumbColor = {
+        0: '#4b5563',
+        1: '#f97316',
+        2: '#ef4444',
+        3: '#dc2626'
+    };
+
+    function applyColors() {
+        document.querySelectorAll('[data-testid="stSlider"]').forEach(sliderWidget => {
+            const input = sliderWidget.querySelector('input[type="range"]');
+            if (!input) return;
+            const val = Math.round(parseFloat(input.value)) || 0;
+            const clampedVal = Math.min(3, Math.max(0, val));
+
+            // Style the track fill
+            const trackFill = sliderWidget.querySelector('div[data-baseweb="slider"] > div > div:first-child');
+            if (trackFill) {
+                trackFill.style.background = trackColors[clampedVal];
+            }
+
+            // Style the thumb
+            const thumb = sliderWidget.querySelector('[role="slider"]');
+            if (thumb) {
+                thumb.style.background = thumbColor[clampedVal];
+                thumb.style.boxShadow  = thumbGlow[clampedVal];
+                thumb.style.transition = 'background 0.3s, box-shadow 0.3s';
+            }
+
+            // Native accent color fallback
+            input.style.accentColor = thumbColor[clampedVal];
+        });
+    }
+
+    const observer = new MutationObserver(applyColors);
+    observer.observe(document.body, {
+        subtree: true,
+        childList: true,
+        attributes: true,
+        attributeFilter: ['aria-valuenow', 'value']
+    });
+    document.addEventListener('input', applyColors, true);
+    [300, 800, 1500, 3000].forEach(t => setTimeout(applyColors, t));
+})();
+</script>
+""", unsafe_allow_html=True)
+
 st.markdown('</div>', unsafe_allow_html=True)
 
 # ── Assess Button ─────────────────────────────────────────────────────────────
 st.markdown("<br>", unsafe_allow_html=True)
-if st.button(" Run Risk Assessment"):
+if st.button("🔍 Run Risk Assessment"):
     result = engine.assess_risk(
         age=age, gender=gender,
         hb=hemoglobin, wbc=wbc,
@@ -350,27 +438,35 @@ if st.button(" Run Risk Assessment"):
     with col_a:
         if result["abnormalities"]:
             st.markdown('<div class="section-card">', unsafe_allow_html=True)
-            st.markdown('<div class="section-label"> Detected Abnormalities</div>', unsafe_allow_html=True)
+            st.markdown('<div class="section-label">⚠️ Detected Abnormalities</div>', unsafe_allow_html=True)
             for ab in result["abnormalities"]:
-                st.markdown(f'<div class="abnormality-item"><div class="abnormality-dot"></div>{ab}</div>', unsafe_allow_html=True)
+                st.markdown(
+                    f'<div class="abnormality-item">'
+                    f'<div class="abnormality-dot"></div>{ab}'
+                    f'</div>',
+                    unsafe_allow_html=True
+                )
             st.markdown('</div>', unsafe_allow_html=True)
         else:
             st.markdown("""
             <div class="section-card">
-                <div class="section-label"> Abnormalities</div>
+                <div class="section-label">✅ Abnormalities</div>
                 <p style="color:#6ee7b7;font-size:0.9rem;">No significant abnormalities detected in CBC values.</p>
             </div>
             """, unsafe_allow_html=True)
 
     with col_b:
         st.markdown('<div class="section-card">', unsafe_allow_html=True)
-        st.markdown('<div class="section-label"> Recommendation</div>', unsafe_allow_html=True)
-        st.markdown(f'<div class="recommendation-box">{result["recommendation"]}</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-label">💊 Recommendation</div>', unsafe_allow_html=True)
+        st.markdown(
+            f'<div class="recommendation-box">{result["recommendation"]}</div>',
+            unsafe_allow_html=True
+        )
         st.markdown('</div>', unsafe_allow_html=True)
 
     # ── CBC Chart ──
     st.markdown('<div class="section-card">', unsafe_allow_html=True)
-    st.markdown('<div class="section-label"> CBC vs Normal Range</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-label">📊 CBC vs Normal Range</div>', unsafe_allow_html=True)
     cbc_data = {
         "Parameter": ["Hemoglobin", "WBC", "Platelets"],
         "Your Value": [hemoglobin, wbc, platelets],
