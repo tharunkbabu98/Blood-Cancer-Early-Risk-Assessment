@@ -253,7 +253,7 @@ hr { border-color: rgba(255,255,255,0.07) !important; }
 # ── Hero ─────────────────────────────────────────────────────────────────────
 st.markdown("""
 <div class="hero">
-    <div class="hero-badge">🩸 AI-Powered Hematology Screening</div>
+    <div class="hero-badge"> AI-Powered Hematology Screening</div>
     <h1>Blood<span>Scan</span> AI</h1>
     <p>Early risk assessment for blood cancers using CBC values, patient demographics, and clinical symptom analysis.</p>
     <div class="hero-divider"></div>
@@ -438,7 +438,7 @@ if st.button("🔍 Run Risk Assessment"):
     with col_a:
         if result["abnormalities"]:
             st.markdown('<div class="section-card">', unsafe_allow_html=True)
-            st.markdown('<div class="section-label">⚠️ Detected Abnormalities</div>', unsafe_allow_html=True)
+            st.markdown('<div class="section-label"> Detected Abnormalities</div>', unsafe_allow_html=True)
             for ab in result["abnormalities"]:
                 st.markdown(
                     f'<div class="abnormality-item">'
@@ -450,14 +450,14 @@ if st.button("🔍 Run Risk Assessment"):
         else:
             st.markdown("""
             <div class="section-card">
-                <div class="section-label">✅ Abnormalities</div>
+                <div class="section-label"> Abnormalities</div>
                 <p style="color:#6ee7b7;font-size:0.9rem;">No significant abnormalities detected in CBC values.</p>
             </div>
             """, unsafe_allow_html=True)
 
     with col_b:
         st.markdown('<div class="section-card">', unsafe_allow_html=True)
-        st.markdown('<div class="section-label">💊 Recommendation</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-label"> Recommendation</div>', unsafe_allow_html=True)
         st.markdown(
             f'<div class="recommendation-box">{result["recommendation"]}</div>',
             unsafe_allow_html=True
@@ -466,7 +466,7 @@ if st.button("🔍 Run Risk Assessment"):
 
     # ── CBC Chart ──
     st.markdown('<div class="section-card">', unsafe_allow_html=True)
-    st.markdown('<div class="section-label">📊 CBC vs Normal Range</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-label"> CBC vs Normal Range</div>', unsafe_allow_html=True)
     cbc_data = {
         "Parameter": ["Hemoglobin", "WBC", "Platelets"],
         "Your Value": [hemoglobin, wbc, platelets],
