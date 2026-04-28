@@ -4,7 +4,7 @@ from risk_engine import RiskAssessmentEngine
 
 st.set_page_config(
     page_title="BloodScan AI · Risk Assessment",
-    page_icon="🩸",
+    page_icon=None,
     layout="wide",
     initial_sidebar_state="collapsed"
 )
@@ -440,7 +440,7 @@ engine = RiskAssessmentEngine()
 st.markdown("""
 <div class="card">
 <div class="card-heading">
-    <div class="card-heading-icon">👤</div>
+    <div class="card-heading-icon">&#9632;</div>
     <div class="card-heading-text">Patient Profile</div>
     <div class="card-heading-line"></div>
 </div>
@@ -456,7 +456,7 @@ st.markdown('</div>', unsafe_allow_html=True)
 st.markdown("""
 <div class="card">
 <div class="card-heading">
-    <div class="card-heading-icon">🔬</div>
+    <div class="card-heading-icon">&#9632;</div>
     <div class="card-heading-text">Complete Blood Count</div>
     <div class="card-heading-line"></div>
 </div>
@@ -496,7 +496,7 @@ severity_glow   = {
 st.markdown("""
 <div class="card">
 <div class="card-heading">
-    <div class="card-heading-icon">🩺</div>
+    <div class="card-heading-icon">&#9632;</div>
     <div class="card-heading-text">Clinical Symptoms</div>
     <div class="card-heading-line"></div>
 </div>
@@ -594,7 +594,7 @@ if st.button("Run Risk Assessment"):
         st.markdown("""
         <div class="card">
         <div class="card-heading">
-            <div class="card-heading-icon"></div>
+            <div class="card-heading-icon">&#9632;</div>
             <div class="card-heading-text">Detected Abnormalities</div>
             <div class="card-heading-line"></div>
         </div>
@@ -614,7 +614,7 @@ if st.button("Run Risk Assessment"):
         st.markdown("""
         <div class="card">
         <div class="card-heading">
-            <div class="card-heading-icon"></div>
+            <div class="card-heading-icon">&#9632;</div>
             <div class="card-heading-text">Clinical Recommendation</div>
             <div class="card-heading-line"></div>
         </div>
@@ -625,7 +625,7 @@ if st.button("Run Risk Assessment"):
     st.markdown("""
     <div class="card">
     <div class="card-heading">
-        <div class="card-heading-icon"></div>
+        <div class="card-heading-icon">&#9632;</div>
         <div class="card-heading-text">CBC vs Reference Range</div>
         <div class="card-heading-line"></div>
     </div>
