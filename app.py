@@ -122,6 +122,17 @@ section[data-testid="stMain"] > div { padding-top: 0 !important; }
     text-align: center !important;
 }
 
+/* Force Streamlit wrapper divs inside .hero to centre everything */
+.hero * {
+    text-align: center !important;
+}
+.hero [data-testid="stMarkdownContainer"],
+.hero [data-testid="stMarkdownContainer"] p,
+.hero [data-testid="stMarkdownContainer"] div {
+    text-align: center !important;
+    width: 100% !important;
+}
+
 .hero-ornament {
     display: flex;
     align-items: center;
@@ -386,6 +397,18 @@ label, [data-testid="stWidgetLabel"] p {
 
 hr { border-color: rgba(255,255,255,0.05) !important; }
 [data-testid="stExpander"] { display: none !important; }
+
+/* ── Streamlit container overrides for hero ── */
+.hero ~ * [data-testid="stMarkdownContainer"] { text-align: left !important; }
+.element-container:has(.hero) [data-testid="stMarkdownContainer"],
+.element-container:has(.hero-desc) [data-testid="stMarkdownContainer"],
+.element-container:has(.hero-desc) [data-testid="stMarkdownContainer"] p {
+    text-align: center !important;
+    display: flex !important;
+    justify-content: center !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -395,7 +418,7 @@ st.markdown("""
     <div class="hero-pre">Hematological Risk Assessment</div>
     <h1 class="hero-title">Blood<strong>Scan</strong> AI</h1>
     <div class="hero-sub">Early Detection · Machine Learning · Clinical Insight</div>
-    <p class="hero-desc">
+    <p class="hero-desc" style="text-align:center !important;margin-left:auto !important;margin-right:auto !important;width:100% !important;max-width:460px !important;display:block !important;">
         Advanced analysis of complete blood count values paired with clinical
         symptom patterns to identify early indicators of hematological risk.
     </p>
