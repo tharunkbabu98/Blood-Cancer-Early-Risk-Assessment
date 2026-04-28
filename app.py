@@ -594,7 +594,7 @@ if st.button("Run Risk Assessment"):
         st.markdown("""
         <div class="card">
         <div class="card-heading">
-            <div class="card-heading-icon">⚠️</div>
+            <div class="card-heading-icon"></div>
             <div class="card-heading-text">Detected Abnormalities</div>
             <div class="card-heading-line"></div>
         </div>
@@ -614,7 +614,7 @@ if st.button("Run Risk Assessment"):
         st.markdown("""
         <div class="card">
         <div class="card-heading">
-            <div class="card-heading-icon">💊</div>
+            <div class="card-heading-icon"></div>
             <div class="card-heading-text">Clinical Recommendation</div>
             <div class="card-heading-line"></div>
         </div>
@@ -625,7 +625,7 @@ if st.button("Run Risk Assessment"):
     st.markdown("""
     <div class="card">
     <div class="card-heading">
-        <div class="card-heading-icon">📊</div>
+        <div class="card-heading-icon"></div>
         <div class="card-heading-text">CBC vs Reference Range</div>
         <div class="card-heading-line"></div>
     </div>
