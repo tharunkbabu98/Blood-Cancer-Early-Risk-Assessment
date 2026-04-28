@@ -11,23 +11,24 @@ st.set_page_config(
 
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap');
 
 :root {
-    --red:        #ff2442;
-    --red-dim:    rgba(255,36,66,0.15);
-    --red-mid:    rgba(255,36,66,0.35);
-    --red-glow:   0 0 20px rgba(255,36,66,0.5), 0 0 60px rgba(255,36,66,0.15);
-    --amber:      #ffaa00;
-    --green:      #00ffaa;
-    --bg:         #03050a;
-    --surface:    rgba(255,255,255,0.025);
-    --border:     rgba(255,36,66,0.18);
-    --text:       #c8d8f0;
-    --text-dim:   #5a6a80;
-    --mono:       'Share Tech Mono', monospace;
-    --display:    'Orbitron', sans-serif;
-    --body:       'Rajdhani', sans-serif;
+    --red:      #e8354a;
+    --red-soft: rgba(232,53,74,0.12);
+    --red-glow: rgba(232,53,74,0.25);
+    --gold:     #c9a96e;
+    --green:    #2dd4a0;
+    --amber:    #e8a435;
+    --bg:       #080b10;
+    --bg2:      #0d1018;
+    --card:     rgba(255,255,255,0.028);
+    --border:   rgba(255,255,255,0.07);
+    --border-r: rgba(232,53,74,0.22);
+    --text:     #d4dce8;
+    --muted:    #5c6a7e;
+    --serif:    'Cormorant Garamond', Georgia, serif;
+    --sans:     'Outfit', sans-serif;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -35,455 +36,371 @@ st.markdown("""
 html, body, [data-testid="stAppViewContainer"] {
     background: var(--bg) !important;
     color: var(--text) !important;
-    font-family: var(--body) !important;
-    font-size: 16px;
+    font-family: var(--sans) !important;
 }
 
-/* ── Animated background ── */
-[data-testid="stAppViewContainer"]::before {
-    content: '';
-    position: fixed;
-    inset: 0;
+/* Rich multi-layer background */
+[data-testid="stAppViewContainer"] {
     background:
-        radial-gradient(ellipse 70% 60% at 15% 0%,   rgba(255,36,66,0.10) 0%, transparent 55%),
-        radial-gradient(ellipse 50% 40% at 85% 100%,  rgba(255,36,66,0.07) 0%, transparent 55%),
-        radial-gradient(ellipse 40% 30% at 50% 50%,   rgba(0,80,200,0.05) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
-    animation: bgPulse 8s ease-in-out infinite alternate;
-}
-@keyframes bgPulse {
-    0%   { opacity: 0.7; }
-    100% { opacity: 1.0; }
-}
-
-/* ── Scanline overlay ── */
-[data-testid="stAppViewContainer"]::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(0,0,0,0.06) 2px,
-        rgba(0,0,0,0.06) 4px
-    );
-    pointer-events: none;
-    z-index: 1;
+        radial-gradient(ellipse 100% 55% at 0% 0%,   rgba(232,53,74,0.09)  0%, transparent 60%),
+        radial-gradient(ellipse 70%  50% at 100% 80%, rgba(201,169,110,0.05) 0%, transparent 55%),
+        radial-gradient(ellipse 60%  40% at 50%  50%, rgba(10,20,40,0.8)    0%, transparent 70%),
+        var(--bg) !important;
 }
 
 [data-testid="stHeader"]  { background: transparent !important; }
 [data-testid="stSidebar"] { display: none !important; }
 section[data-testid="stMain"] > div { padding-top: 0 !important; }
 .block-container {
-    padding: 0 2.5rem 5rem !important;
-    max-width: 1120px !important;
+    padding: 0 3rem 5rem !important;
+    max-width: 1080px !important;
     margin: 0 auto;
-    position: relative;
-    z-index: 2;
 }
 
 /* ── Hero ── */
 .hero {
+    padding: 4.5rem 1rem 3rem;
     text-align: center;
-    padding: 4rem 2rem 2.5rem;
-    position: relative;
 }
-.hero-eyebrow {
-    font-family: var(--mono);
-    font-size: 0.68rem;
-    letter-spacing: 0.3em;
-    color: var(--red);
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-    animation: fadeDown 0.6s ease both;
-}
-.hero-eyebrow::before { content: '[ '; }
-.hero-eyebrow::after  { content: ' ]'; }
 
-.hero h1 {
-    font-family: var(--display) !important;
-    font-size: clamp(2.2rem, 6vw, 4rem) !important;
-    font-weight: 900 !important;
-    color: #fff !important;
-    letter-spacing: 0.08em !important;
-    line-height: 1 !important;
-    margin-bottom: 0.5rem !important;
-    text-shadow: var(--red-glow) !important;
-    animation: fadeDown 0.7s 0.1s ease both !important;
+.hero-pre {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.4rem;
+    opacity: 0.85;
 }
-.hero h1 .accent { color: var(--red); }
-.hero h1 .sub {
-    font-size: 0.4em;
+.hero-pre::before,
+.hero-pre::after {
+    content: '';
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold));
+}
+.hero-pre::after { transform: scaleX(-1); }
+
+.hero-title {
+    font-family: var(--serif) !important;
+    font-size: clamp(3rem, 7vw, 5.5rem) !important;
+    font-weight: 300 !important;
+    color: #ffffff !important;
+    letter-spacing: 0.04em !important;
+    line-height: 0.95 !important;
+    margin-bottom: 1rem !important;
+}
+.hero-title strong {
+    font-weight: 600;
+    color: var(--red);
+    font-style: italic;
+}
+
+.hero-sub {
+    font-family: var(--sans);
+    font-size: 0.8rem;
     font-weight: 400;
-    letter-spacing: 0.25em;
-    color: var(--text-dim);
-    display: block;
-    margin-top: 0.4em;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
 }
 
 .hero-desc {
-    font-family: var(--body);
-    font-size: 1rem;
+    font-family: var(--sans);
+    font-size: 0.95rem;
     font-weight: 300;
-    color: var(--text-dim);
-    max-width: 480px;
-    margin: 1.2rem auto 0;
-    line-height: 1.7;
-    letter-spacing: 0.02em;
-    animation: fadeDown 0.8s 0.2s ease both;
+    color: #7a8a9e;
+    max-width: 460px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.8;
 }
 
-/* Corner decorations */
-.hero-corners {
-    position: relative;
-    display: inline-block;
-    padding: 1.5rem 3rem;
-    margin-bottom: 0.5rem;
+.hero-ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 0 auto 0;
+    opacity: 0.4;
 }
-.hero-corners::before,
-.hero-corners::after,
-.corner-bl::before,
-.corner-bl::after {
-    content: '';
-    position: absolute;
-    width: 18px; height: 18px;
-    border-color: var(--red);
-    border-style: solid;
-    opacity: 0.6;
-}
-.hero-corners::before { top: 0; left: 0; border-width: 2px 0 0 2px; }
-.hero-corners::after  { top: 0; right: 0; border-width: 2px 2px 0 0; }
-.corner-bl::before    { bottom: 0; left: 0; border-width: 0 0 2px 2px; }
-.corner-bl::after     { bottom: 0; right: 0; border-width: 0 2px 2px 0; }
+.hero-ornament span { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--red)); }
+.hero-ornament span:last-child { transform: scaleX(-1); }
+.hero-ornament i { width: 5px; height: 5px; border-radius: 50%; background: var(--red); }
 
-.hero-line {
-    width: 1px;
-    height: 40px;
-    background: linear-gradient(to bottom, var(--red), transparent);
-    margin: 1.5rem auto 0;
-    animation: fadeDown 1s 0.3s ease both;
-}
-
-@keyframes fadeDown {
-    from { opacity: 0; transform: translateY(-12px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ── Section Cards ── */
+/* ── Cards ── */
 .card {
-    position: relative;
-    background: var(--surface);
+    background: var(--card);
     border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 1.8rem 2rem;
-    margin-bottom: 1rem;
+    border-radius: 12px;
+    padding: 2rem 2.2rem;
+    margin-bottom: 1.1rem;
+    backdrop-filter: blur(20px);
+    transition: border-color 0.35s, box-shadow 0.35s;
+    position: relative;
     overflow: hidden;
-    transition: border-color 0.3s, box-shadow 0.3s;
 }
 .card::before {
     content: '';
     position: absolute;
-    top: 0; left: 0; right: 0;
+    top: 0; left: 10%; right: 10%;
     height: 1px;
-    background: linear-gradient(90deg, transparent, var(--red), transparent);
-    opacity: 0.6;
+    background: linear-gradient(90deg, transparent, rgba(232,53,74,0.4), transparent);
 }
 .card:hover {
-    border-color: rgba(255,36,66,0.4);
-    box-shadow: 0 0 30px rgba(255,36,66,0.08), inset 0 0 30px rgba(255,36,66,0.02);
+    border-color: var(--border-r);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.3), 0 0 0 1px rgba(232,53,74,0.06);
 }
 
-/* Corner accents on cards */
-.card::after {
-    content: '';
-    position: absolute;
-    bottom: 0; right: 0;
-    width: 12px; height: 12px;
-    border-right: 1px solid var(--red);
-    border-bottom: 1px solid var(--red);
-    opacity: 0.5;
-}
-
-.card-header {
+.card-heading {
     display: flex;
     align-items: center;
-    gap: 0.8rem;
-    margin-bottom: 1.5rem;
+    gap: 1rem;
+    margin-bottom: 1.6rem;
 }
-.card-header-num {
-    font-family: var(--mono);
-    font-size: 0.62rem;
-    color: var(--red);
-    opacity: 0.7;
-    min-width: 24px;
+.card-heading-icon {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    background: var(--red-soft);
+    border: 1px solid var(--border-r);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.95rem;
+    flex-shrink: 0;
 }
-.card-header-title {
-    font-family: var(--display);
-    font-size: 0.62rem;
-    font-weight: 700;
-    letter-spacing: 0.2em;
+.card-heading-text {
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--red);
+    color: var(--text);
+    opacity: 0.7;
 }
-.card-header-line {
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(90deg, var(--red-mid), transparent);
-}
-.card-header-tag {
-    font-family: var(--mono);
-    font-size: 0.58rem;
-    color: var(--text-dim);
-    letter-spacing: 0.1em;
+.card-heading-line {
+    flex: 1; height: 1px;
+    background: linear-gradient(90deg, var(--border-r), transparent);
 }
 
 /* ── Inputs ── */
 [data-testid="stNumberInput"] input,
 [data-testid="stSelectbox"] > div > div {
-    background: rgba(255,36,66,0.04) !important;
-    border: 1px solid rgba(255,36,66,0.2) !important;
-    border-radius: 3px !important;
-    color: #e8f0ff !important;
-    font-family: var(--mono) !important;
-    font-size: 0.9rem !important;
-    letter-spacing: 0.05em !important;
+    background: rgba(255,255,255,0.035) !important;
+    border: 1px solid rgba(255,255,255,0.09) !important;
+    border-radius: 8px !important;
+    color: #e0e8f4 !important;
+    font-family: var(--sans) !important;
+    font-size: 0.95rem !important;
+    font-weight: 400 !important;
+    transition: border-color 0.2s, box-shadow 0.2s !important;
 }
 [data-testid="stNumberInput"] input:focus {
-    border-color: var(--red) !important;
-    box-shadow: 0 0 0 2px rgba(255,36,66,0.15), var(--red-glow) !important;
-    background: rgba(255,36,66,0.07) !important;
+    border-color: rgba(232,53,74,0.5) !important;
+    box-shadow: 0 0 0 3px rgba(232,53,74,0.1) !important;
+    background: rgba(232,53,74,0.04) !important;
 }
 
 label, [data-testid="stWidgetLabel"] p {
-    font-family: var(--mono) !important;
-    font-size: 0.72rem !important;
-    font-weight: 400 !important;
-    letter-spacing: 0.1em !important;
-    color: #6a7a94 !important;
-    text-transform: uppercase !important;
+    font-family: var(--sans) !important;
+    font-size: 0.78rem !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.06em !important;
+    color: #5c6a7e !important;
+    text-transform: none !important;
 }
 
 /* ── Sliders ── */
 [data-testid="stSlider"] > div > div > div {
-    background: rgba(255,36,66,0.15) !important;
+    background: rgba(255,255,255,0.07) !important;
     height: 3px !important;
+    border-radius: 2px !important;
 }
 [data-testid="stSlider"] > div > div > div > div {
     background: var(--red) !important;
-    box-shadow: 0 0 10px rgba(255,36,66,0.6) !important;
-    border-radius: 2px !important;
+    box-shadow: 0 0 12px rgba(232,53,74,0.5) !important;
     transition: background 0.3s, box-shadow 0.3s !important;
 }
 
-/* ── CTA Button ── */
+/* ── Button ── */
 .stButton > button {
     width: 100% !important;
-    position: relative !important;
-    background: transparent !important;
-    border: 1px solid var(--red) !important;
-    border-radius: 3px !important;
+    background: linear-gradient(135deg, var(--red), #c0293c) !important;
+    border: none !important;
+    border-radius: 10px !important;
     color: #fff !important;
-    font-family: var(--display) !important;
+    font-family: var(--sans) !important;
     font-size: 0.85rem !important;
-    font-weight: 700 !important;
-    letter-spacing: 0.25em !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.14em !important;
     text-transform: uppercase !important;
-    padding: 1.1rem 2rem !important;
+    padding: 1rem 2rem !important;
     cursor: pointer !important;
-    overflow: hidden !important;
     transition: all 0.3s !important;
-    box-shadow: inset 0 0 20px rgba(255,36,66,0.05), var(--red-glow) !important;
-}
-.stButton > button::before {
-    content: '' !important;
-    position: absolute !important;
-    inset: 0 !important;
-    background: linear-gradient(135deg, rgba(255,36,66,0.15), transparent 60%) !important;
-    transition: opacity 0.3s !important;
+    box-shadow: 0 4px 24px rgba(232,53,74,0.3), 0 1px 0 rgba(255,255,255,0.1) inset !important;
 }
 .stButton > button:hover {
-    background: rgba(255,36,66,0.12) !important;
-    box-shadow: 0 0 40px rgba(255,36,66,0.4), inset 0 0 30px rgba(255,36,66,0.1) !important;
-    transform: translateY(-1px) !important;
-    letter-spacing: 0.3em !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 40px rgba(232,53,74,0.45), 0 1px 0 rgba(255,255,255,0.15) inset !important;
+    letter-spacing: 0.18em !important;
+}
+.stButton > button:active {
+    transform: translateY(0) !important;
 }
 
 /* ── Result ── */
-.result-wrap {
-    position: relative;
-    border-radius: 4px;
-    padding: 2.5rem 2rem;
-    margin: 1.5rem 0;
+.result-card {
+    border-radius: 12px;
+    padding: 3rem 2rem;
+    margin: 1.8rem 0;
     text-align: center;
+    position: relative;
     overflow: hidden;
 }
-.result-wrap.low {
-    background: linear-gradient(135deg, rgba(0,255,170,0.08), rgba(0,255,170,0.02));
-    border: 1px solid rgba(0,255,170,0.3);
-    box-shadow: 0 0 40px rgba(0,255,170,0.07);
+.result-card.low {
+    background: radial-gradient(ellipse at center, rgba(45,212,160,0.1) 0%, rgba(45,212,160,0.02) 70%);
+    border: 1px solid rgba(45,212,160,0.25);
 }
-.result-wrap.moderate {
-    background: linear-gradient(135deg, rgba(255,170,0,0.1), rgba(255,170,0,0.02));
-    border: 1px solid rgba(255,170,0,0.35);
-    box-shadow: 0 0 40px rgba(255,170,0,0.08);
+.result-card.moderate {
+    background: radial-gradient(ellipse at center, rgba(232,164,53,0.1) 0%, rgba(232,164,53,0.02) 70%);
+    border: 1px solid rgba(232,164,53,0.3);
 }
-.result-wrap.high {
-    background: linear-gradient(135deg, rgba(255,36,66,0.12), rgba(255,36,66,0.02));
-    border: 1px solid rgba(255,36,66,0.45);
-    box-shadow: 0 0 60px rgba(255,36,66,0.12);
+.result-card.high {
+    background: radial-gradient(ellipse at center, rgba(232,53,74,0.14) 0%, rgba(232,53,74,0.02) 70%);
+    border: 1px solid rgba(232,53,74,0.35);
 }
 
-.result-tag {
-    font-family: var(--mono);
-    font-size: 0.62rem;
-    letter-spacing: 0.3em;
-    color: var(--text-dim);
+.result-eyebrow {
+    font-family: var(--sans);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.25em;
     text-transform: uppercase;
-    margin-bottom: 0.6rem;
-}
-.result-level {
-    font-family: var(--display);
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
-    font-weight: 900;
-    letter-spacing: 0.1em;
-    line-height: 1;
+    color: var(--muted);
     margin-bottom: 0.8rem;
 }
-.result-level.low      { color: var(--green); text-shadow: 0 0 30px rgba(0,255,170,0.6); }
-.result-level.moderate { color: var(--amber); text-shadow: 0 0 30px rgba(255,170,0,0.6); }
-.result-level.high     { color: var(--red);   text-shadow: var(--red-glow); }
 
-.urgency-chip {
+.result-title {
+    font-family: var(--serif);
+    font-size: clamp(2.8rem, 7vw, 5rem);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1;
+    margin-bottom: 1rem;
+    letter-spacing: 0.02em;
+}
+.result-title.low      { color: var(--green); text-shadow: 0 0 40px rgba(45,212,160,0.4); }
+.result-title.moderate { color: var(--amber); text-shadow: 0 0 40px rgba(232,164,53,0.4); }
+.result-title.high     { color: var(--red);   text-shadow: 0 0 40px rgba(232,53,74,0.5); }
+
+.result-urgency {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.6rem;
     background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 2px;
-    padding: 0.4rem 1rem;
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.15em;
-    color: var(--text-dim);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 999px;
+    padding: 0.45rem 1.2rem;
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--muted);
 }
 .urgency-dot {
-    width: 5px; height: 5px;
+    width: 6px; height: 6px;
     border-radius: 50%;
     background: var(--red);
     box-shadow: 0 0 8px var(--red);
-    animation: blink 1.2s ease-in-out infinite;
+    animation: pulse 2s ease-in-out infinite;
 }
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+.result-card.low    .urgency-dot { background: var(--green); box-shadow: 0 0 8px var(--green); }
+.result-card.moderate .urgency-dot { background: var(--amber); box-shadow: 0 0 8px var(--amber); }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.85)} }
 
-/* ── Abnormality items ── */
+/* ── Abnormalities ── */
+.ab-wrap { display: flex; flex-direction: column; gap: 0.45rem; }
 .ab-item {
     display: flex;
     align-items: flex-start;
-    gap: 0.8rem;
-    background: rgba(255,36,66,0.05);
-    border-left: 2px solid var(--red);
-    border-bottom: 1px solid rgba(255,36,66,0.1);
-    padding: 0.7rem 1rem;
-    margin-bottom: 0.4rem;
-    font-family: var(--body);
-    font-size: 0.9rem;
+    gap: 0.75rem;
+    background: rgba(232,53,74,0.05);
+    border: 1px solid rgba(232,53,74,0.12);
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    font-family: var(--sans);
+    font-size: 0.88rem;
     font-weight: 400;
-    color: #ffb0bb;
-    letter-spacing: 0.02em;
+    color: #e0a0a8;
+    line-height: 1.5;
     transition: background 0.2s;
 }
-.ab-item:hover { background: rgba(255,36,66,0.09); }
-.ab-num {
-    font-family: var(--mono);
-    font-size: 0.6rem;
-    color: var(--red);
-    opacity: 0.6;
-    padding-top: 3px;
-    min-width: 20px;
+.ab-item:hover { background: rgba(232,53,74,0.09); }
+.ab-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--red);
+    margin-top: 6px;
+    flex-shrink: 0;
+    box-shadow: 0 0 6px rgba(232,53,74,0.6);
 }
 
 /* ── Recommendation ── */
 .rec-box {
-    background: rgba(0,255,170,0.04);
-    border: 1px solid rgba(0,255,170,0.2);
+    background: rgba(45,212,160,0.05);
+    border: 1px solid rgba(45,212,160,0.18);
     border-left: 3px solid var(--green);
-    border-radius: 3px;
-    padding: 1.2rem 1.4rem;
-    font-family: var(--body);
-    font-size: 0.95rem;
+    border-radius: 8px;
+    padding: 1.3rem 1.5rem;
+    font-family: var(--sans);
+    font-size: 0.92rem;
     font-weight: 400;
-    color: #90ffd8;
-    line-height: 1.7;
-    letter-spacing: 0.02em;
+    color: #90e8cc;
+    line-height: 1.8;
 }
 
 /* ── Severity badge ── */
 .sev-badge {
-    font-family: var(--mono);
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
+    font-family: var(--sans);
+    font-size: 0.68rem;
     font-weight: 600;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     text-align: right;
-    margin: -12px 0 10px;
+    margin: -10px 0 12px;
     transition: color 0.3s;
 }
 
-/* ── Status bar at top ── */
-.status-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+/* ── No abnormalities ── */
+.no-ab {
+    font-family: var(--sans);
+    font-size: 0.88rem;
+    color: var(--green);
+    opacity: 0.8;
     padding: 0.5rem 0;
-    margin-bottom: 0.5rem;
-    border-bottom: 1px solid rgba(255,36,66,0.1);
-}
-.status-item {
-    font-family: var(--mono);
-    font-size: 0.6rem;
-    letter-spacing: 0.12em;
-    color: var(--text-dim);
-}
-.status-item .dot {
-    display: inline-block;
-    width: 4px; height: 4px;
-    border-radius: 50%;
-    background: var(--green);
-    box-shadow: 0 0 6px var(--green);
-    margin-right: 5px;
-    animation: blink 2s ease-in-out infinite;
 }
 
-hr { border-color: rgba(255,36,66,0.1) !important; }
+hr { border-color: rgba(255,255,255,0.05) !important; }
 [data-testid="stExpander"] { display: none !important; }
 </style>
-""", unsafe_allow_html=True)
-
-# ── Status bar ────────────────────────────────────────────────────────────────
-st.markdown("""
-<div class="status-bar">
-    <span class="status-item"><span class="dot"></span>SYSTEM ONLINE</span>
-    <span class="status-item">BLOODSCAN AI · v2.4.1</span>
-    <span class="status-item">HEMATOLOGY MODULE · ACTIVE</span>
-</div>
 """, unsafe_allow_html=True)
 
 # ── Hero ─────────────────────────────────────────────────────────────────────
 st.markdown("""
 <div class="hero">
-    <div class="hero-eyebrow">Hematological Risk Screening System</div>
-    <div class="hero-corners">
-        <div class="corner-bl">
-            <h1>BLOOD<span class="accent">SCAN</span><span class="sub">EARLY DETECTION · AI POWERED</span></h1>
-        </div>
-    </div>
+    <div class="hero-pre">Hematological Risk Assessment</div>
+    <h1 class="hero-title">Blood<strong>Scan</strong> AI</h1>
+    <div class="hero-sub">Early Detection · Machine Learning · Clinical Insight</div>
     <p class="hero-desc">
-        Advanced CBC analysis combined with symptom pattern recognition
-        to flag early indicators of hematological malignancies.
+        Advanced analysis of complete blood count values paired with clinical
+        symptom patterns to identify early indicators of hematological risk.
     </p>
-    <div class="hero-line"></div>
+    <div class="hero-ornament">
+        <span></span><i></i><i style="opacity:0.5;width:3px;height:3px"></i><i></i><span></span>
+    </div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -498,16 +415,15 @@ engine = RiskAssessmentEngine()
 # ── Patient Details ───────────────────────────────────────────────────────────
 st.markdown("""
 <div class="card">
-<div class="card-header">
-    <span class="card-header-num">01</span>
-    <span class="card-header-title">Patient Profile</span>
-    <span class="card-header-line"></span>
-    <span class="card-header-tag">DEMOGRAPHIC DATA</span>
+<div class="card-heading">
+    <div class="card-heading-icon">👤</div>
+    <div class="card-heading-text">Patient Profile</div>
+    <div class="card-heading-line"></div>
 </div>
 """, unsafe_allow_html=True)
 col1, col2 = st.columns(2)
 with col1:
-    age = st.number_input("Age [ years ]", 18, 100, 30)
+    age = st.number_input("Age (years)", 18, 100, 30)
 with col2:
     gender = st.selectbox("Biological Sex", ["Male", "Female"])
 st.markdown('</div>', unsafe_allow_html=True)
@@ -515,20 +431,19 @@ st.markdown('</div>', unsafe_allow_html=True)
 # ── CBC ───────────────────────────────────────────────────────────────────────
 st.markdown("""
 <div class="card">
-<div class="card-header">
-    <span class="card-header-num">02</span>
-    <span class="card-header-title">Complete Blood Count</span>
-    <span class="card-header-line"></span>
-    <span class="card-header-tag">CBC PANEL</span>
+<div class="card-heading">
+    <div class="card-heading-icon">🔬</div>
+    <div class="card-heading-text">Complete Blood Count</div>
+    <div class="card-heading-line"></div>
 </div>
 """, unsafe_allow_html=True)
 col1, col2 = st.columns(2)
 with col1:
-    hemoglobin = st.number_input("Hemoglobin [ g/dL ]", 4.0, 20.0, 13.5)
-    wbc        = st.number_input("WBC Count [ ×10³/μL ]", 0.5, 100.0, 7.0)
+    hemoglobin = st.number_input("Hemoglobin (g/dL)", 4.0, 20.0, 13.5)
+    wbc        = st.number_input("WBC Count (×10³/μL)", 0.5, 100.0, 7.0)
 with col2:
-    rbc        = st.number_input("RBC Count [ ×10⁶/μL ]", 1.5, 7.0, 4.5)
-    platelets  = st.number_input("Platelet Count [ ×10³/μL ]", 10, 600, 250)
+    rbc        = st.number_input("RBC Count (×10⁶/μL)", 1.5, 7.0, 4.5)
+    platelets  = st.number_input("Platelet Count (×10³/μL)", 10, 600, 250)
 st.markdown('</div>', unsafe_allow_html=True)
 
 # ── Symptoms ──────────────────────────────────────────────────────────────────
@@ -545,23 +460,25 @@ symptom_list = [
     ("bleeding_gums",       "Bleeding Gums"),
 ]
 
-severity_labels = {0: "——", 1: "MILD", 2: "MODERATE", 3: "SEVERE"}
-severity_colors = {0: "#2a3545", 1: "#f97316", 2: "#ef4444", 3: "#ff2442"}
+severity_labels = {0: "None", 1: "Mild", 2: "Moderate", 3: "Severe"}
+severity_colors = {0: "#2e3a4a", 1: "#d97706", 2: "#e8354a", 3: "#c0293c"}
 severity_glow   = {
     0: "none",
-    1: "0 0 8px rgba(249,115,22,0.5)",
-    2: "0 0 12px rgba(239,68,68,0.6)",
-    3: "0 0 20px rgba(255,36,66,0.9), 0 0 40px rgba(255,36,66,0.3)"
+    1: "0 0 8px rgba(217,119,6,0.5)",
+    2: "0 0 12px rgba(232,53,74,0.55)",
+    3: "0 0 18px rgba(192,41,60,0.8)"
 }
 
 st.markdown("""
 <div class="card">
-<div class="card-header">
-    <span class="card-header-num">03</span>
-    <span class="card-header-title">Clinical Symptoms</span>
-    <span class="card-header-line"></span>
-    <span class="card-header-tag">0 = NONE · 3 = SEVERE</span>
+<div class="card-heading">
+    <div class="card-heading-icon">🩺</div>
+    <div class="card-heading-text">Clinical Symptoms</div>
+    <div class="card-heading-line"></div>
 </div>
+<p style="font-family:'Outfit',sans-serif;font-size:0.78rem;color:#3e4e62;margin:-0.5rem 0 1.5rem;font-weight:400;letter-spacing:0.04em;">
+    Rate each symptom from 0 (not present) to 3 (severe)
+</p>
 """, unsafe_allow_html=True)
 
 symptoms = {}
@@ -570,7 +487,7 @@ col1, col2 = st.columns(2)
 
 with col1:
     for key, label in symptom_list[:half]:
-        val = st.slider(label.upper(), 0, 3, 0, key=key)
+        val = st.slider(label, 0, 3, 0, key=key)
         symptoms[key] = val
         c = severity_colors[val]
         s = severity_labels[val]
@@ -581,7 +498,7 @@ with col1:
 
 with col2:
     for key, label in symptom_list[half:]:
-        val = st.slider(label.upper(), 0, 3, 0, key=key)
+        val = st.slider(label, 0, 3, 0, key=key)
         symptoms[key] = val
         c = severity_colors[val]
         s = severity_labels[val]
@@ -594,18 +511,12 @@ with col2:
 st.markdown("""
 <script>
 (function() {
-    const thumbColor = { 0:'#2a3545', 1:'#f97316', 2:'#ef4444', 3:'#ff2442' };
+    const thumbColor = { 0:'#2e3a4a', 1:'#d97706', 2:'#e8354a', 3:'#c0293c' };
     const thumbGlow  = {
         0:'none',
-        1:'0 0 8px rgba(249,115,22,0.6)',
-        2:'0 0 14px rgba(239,68,68,0.7)',
-        3:'0 0 22px rgba(255,36,66,1), 0 0 40px rgba(255,36,66,0.4)'
-    };
-    const trackColor = {
-        0:'rgba(255,36,66,0.1)',
-        1:'rgba(249,115,22,0.4)',
-        2:'rgba(239,68,68,0.65)',
-        3:'rgba(255,36,66,1)'
+        1:'0 0 10px rgba(217,119,6,0.55)',
+        2:'0 0 14px rgba(232,53,74,0.65)',
+        3:'0 0 22px rgba(192,41,60,0.9), 0 0 40px rgba(192,41,60,0.3)'
     };
     function apply() {
         document.querySelectorAll('[data-testid="stSlider"]').forEach(w => {
@@ -617,21 +528,14 @@ st.markdown("""
             if (thumb) {
                 thumb.style.background  = thumbColor[v];
                 thumb.style.boxShadow   = thumbGlow[v];
-                thumb.style.transition  = 'background 0.25s, box-shadow 0.25s';
-                thumb.style.borderColor = thumbColor[v];
+                thumb.style.transition  = 'background 0.3s, box-shadow 0.3s';
             }
-            const fills = w.querySelectorAll('div[data-baseweb] div');
-            fills.forEach(f => {
-                if (f.style && getComputedStyle(f).position !== 'absolute') {
-                    f.style.transition = 'background 0.25s';
-                }
-            });
         });
     }
     const obs = new MutationObserver(apply);
     obs.observe(document.body, { subtree:true, childList:true, attributes:true, attributeFilter:['aria-valuenow','value'] });
     document.addEventListener('input', apply, true);
-    [200,600,1200,2500].forEach(t => setTimeout(apply, t));
+    [300, 800, 1500, 3000].forEach(t => setTimeout(apply, t));
 })();
 </script>
 """, unsafe_allow_html=True)
@@ -639,7 +543,7 @@ st.markdown('</div>', unsafe_allow_html=True)
 
 # ── Assess Button ─────────────────────────────────────────────────────────────
 st.markdown("<br>", unsafe_allow_html=True)
-if st.button("⬡  INITIATE RISK ASSESSMENT"):
+if st.button("Run Risk Assessment"):
     result     = engine.assess_risk(
         age=age, gender=gender,
         hb=hemoglobin, wbc=wbc,
@@ -649,14 +553,13 @@ if st.button("⬡  INITIATE RISK ASSESSMENT"):
     risk       = result['risk_level']
     risk_class = risk.lower()
 
-    # ── Result ──
     st.markdown(f"""
-    <div class="result-wrap {risk_class}">
-        <div class="result-tag">// ASSESSMENT COMPLETE · RISK CLASSIFICATION</div>
-        <div class="result-level {risk_class}">{risk.upper()}</div>
-        <div class="urgency-chip">
+    <div class="result-card {risk_class}">
+        <div class="result-eyebrow">Risk Classification</div>
+        <div class="result-title {risk_class}">{risk} Risk</div>
+        <div class="result-urgency">
             <span class="urgency-dot"></span>
-            {result['urgency'].upper()}
+            {result['urgency']}
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -666,74 +569,69 @@ if st.button("⬡  INITIATE RISK ASSESSMENT"):
     with col_a:
         st.markdown("""
         <div class="card">
-        <div class="card-header">
-            <span class="card-header-num">—</span>
-            <span class="card-header-title">Detected Abnormalities</span>
-            <span class="card-header-line"></span>
+        <div class="card-heading">
+            <div class="card-heading-icon">⚠️</div>
+            <div class="card-heading-text">Detected Abnormalities</div>
+            <div class="card-heading-line"></div>
         </div>
+        <div class="ab-wrap">
         """, unsafe_allow_html=True)
         if result["abnormalities"]:
-            for i, ab in enumerate(result["abnormalities"], 1):
+            for ab in result["abnormalities"]:
                 st.markdown(
-                    f'<div class="ab-item"><span class="ab-num">{i:02d}</span>{ab}</div>',
+                    f'<div class="ab-item"><span class="ab-dot"></span>{ab}</div>',
                     unsafe_allow_html=True
                 )
         else:
-            st.markdown(
-                '<p style="font-family:var(--mono);font-size:0.75rem;color:#00ffaa;letter-spacing:0.1em;">'
-                '[ NO ABNORMALITIES DETECTED ]</p>',
-                unsafe_allow_html=True
-            )
-        st.markdown('</div>', unsafe_allow_html=True)
+            st.markdown('<p class="no-ab">✓ No significant abnormalities detected</p>', unsafe_allow_html=True)
+        st.markdown('</div></div>', unsafe_allow_html=True)
 
     with col_b:
         st.markdown("""
         <div class="card">
-        <div class="card-header">
-            <span class="card-header-num">—</span>
-            <span class="card-header-title">Clinical Recommendation</span>
-            <span class="card-header-line"></span>
+        <div class="card-heading">
+            <div class="card-heading-icon">💊</div>
+            <div class="card-heading-text">Clinical Recommendation</div>
+            <div class="card-heading-line"></div>
         </div>
         """, unsafe_allow_html=True)
         st.markdown(f'<div class="rec-box">{result["recommendation"]}</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
-    # ── CBC Chart ──
     st.markdown("""
     <div class="card">
-    <div class="card-header">
-        <span class="card-header-num">—</span>
-        <span class="card-header-title">CBC vs Reference Range</span>
-        <span class="card-header-line"></span>
-        <span class="card-header-tag">COMPARATIVE ANALYSIS</span>
+    <div class="card-heading">
+        <div class="card-heading-icon">📊</div>
+        <div class="card-heading-text">CBC vs Reference Range</div>
+        <div class="card-heading-line"></div>
     </div>
     """, unsafe_allow_html=True)
     cbc_data = {
         "Parameter": ["Hemoglobin", "WBC", "Platelets"],
-        "Patient Value": [hemoglobin, wbc, platelets],
-        "Reference":     [
+        "Your Value": [hemoglobin, wbc, platelets],
+        "Reference":  [
             NORMAL_CBC["Hemoglobin"][gender],
             NORMAL_CBC["WBC"],
             NORMAL_CBC["Platelets"]
         ]
     }
     df = pd.DataFrame(cbc_data).set_index("Parameter")
-    st.bar_chart(df, color=["#ff2442", "#1a2535"])
+    st.bar_chart(df, color=["#e8354a", "#1e2a38"])
     st.markdown('</div>', unsafe_allow_html=True)
 
 # ── Footer ────────────────────────────────────────────────────────────────────
 st.markdown("""
 <div style="
     text-align:center;
-    padding:2.5rem 0 1rem;
-    font-family:'Share Tech Mono',monospace;
-    font-size:0.62rem;
-    letter-spacing:0.15em;
-    color:#1e2a3a;
-    border-top:1px solid rgba(255,36,66,0.08);
+    padding:3rem 0 1.5rem;
+    font-family:'Outfit',sans-serif;
+    font-size:0.72rem;
+    font-weight:400;
+    letter-spacing:0.1em;
+    color:#1e2a38;
+    border-top:1px solid rgba(255,255,255,0.04);
     margin-top:2rem;
 ">
-    BLOODSCAN AI · FOR SCREENING PURPOSES ONLY · NOT A SUBSTITUTE FOR PROFESSIONAL MEDICAL ADVICE<br>
-    <span style="color:#111d2a;">─────────────────────────────────────────────────</span>
+    BloodScan AI &nbsp;·&nbsp; For screening purposes only &nbsp;·&nbsp; Not a substitute for professional medical advice
 </div>
 """, unsafe_allow_html=True)
